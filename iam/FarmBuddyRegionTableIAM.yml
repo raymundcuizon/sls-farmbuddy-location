@@ -1,0 +1,11 @@
+FarmBuddyRegionTableIAM:
+  Effect: Allow
+  Action:
+    - dynamodb:PutItem
+    - dynamodb:Scan
+    - dynamodb:GetItem
+    - dynamodb:UpdateItem
+    - dynamodb:Query
+    - dynamodb:BatchWriteItem
+  Resource:
+    - ${self:custom.FarmBuddyRegionTable.arn}

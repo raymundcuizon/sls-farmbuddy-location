@@ -1,0 +1,12 @@
+FarmBuddyProvinceTableIAM:
+  Effect: Allow
+  Action:
+    - dynamodb:PutItem
+    - dynamodb:Scan
+    - dynamodb:GetItem
+    - dynamodb:UpdateItem
+    - dynamodb:Query
+    - dynamodb:BatchWriteItem
+  Resource:
+    - ${self:custom.FarmBuddyProvinceTable.arn}
+    - !Join ['/', [ '${self:custom.FarmBuddyProvinceTable.arn}', 'index', 'RegCodeAndProvCode' ]]

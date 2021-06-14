@@ -1,0 +1,24 @@
+FarmBuddyProvinceTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: FarmBuddyProvinceTable-${self:provider.stage}
+    BillingMode: PAY_PER_REQUEST
+    AttributeDefinitions:
+      - AttributeName: "id"
+        AttributeType: "N"
+      - AttributeName: regCode
+        AttributeType: S
+      - AttributeName: provCode
+        AttributeType: S
+    KeySchema:
+      - AttributeName: id
+        KeyType: HASH 
+    GlobalSecondaryIndexes:
+      - IndexName: RegCodeAndProvCode
+        KeySchema:
+          - AttributeName: regCode
+            KeyType: HASH
+          - AttributeName: provCode
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL

@@ -1,0 +1,37 @@
+FarmBuddyBrgyTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: FarmBuddyBrgyTable-${self:provider.stage}
+    BillingMode: PAY_PER_REQUEST
+    AttributeDefinitions:
+      - AttributeName: "id"
+        AttributeType: "N"
+      # - AttributeName: brgyCode
+      #   AttributeType: S
+      # - AttributeName: brgyDesc
+      #   AttributeType: S
+      # - AttributeName: regCode
+      #   AttributeType: S
+      # - AttributeName: provCode
+      #   AttributeType: S
+      # - AttributeName: citymunCode
+      #   AttributeType: S
+    KeySchema:
+      - AttributeName: id
+        KeyType: HASH 
+    # GlobalSecondaryIndexes:
+    #   - IndexName: brgyGlobalSecInd
+    #     KeySchema:
+    #       - AttributeName: brgyCode
+    #         KeyType: HASH
+    #       - AttributeName: brgyDesc
+    #         KeyType: HASH
+    #       - AttributeName: regCode
+    #         KeyType: HASH
+    #       - AttributeName: provCode
+    #         KeyType: HASH
+    #       - AttributeName: citymunCode
+    #         KeyType: RANGE
+    #     Projection:
+    #       ProjectionType: ALL
+           

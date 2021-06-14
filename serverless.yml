@@ -1,0 +1,81 @@
+service: 
+  name: farmbuddylocation
+
+plugins:
+  - serverless-bundle
+  - serverless-pseudo-parameters
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 1024
+  lambdaHashingVersion: 20201221
+  stage: ${opt:stage, 'dev'}
+  region: ap-southeast-1
+  environment:
+    LOCATIONS_REGIONS_TABLE_NAME: ${self:custom.FarmBuddyRegionTable.name}
+    LOCATIONS_PROVINCE_TABLE_NAME: ${self:custom.FarmBuddyProvinceTable.name}
+    LOCATIONS_CITY_MUN_TABLE_NAME: ${self:custom.FarmBuddyCityMunTable.name}
+    LOCATIONS_BRGY_TABLE_NAME: ${self:custom.FarmBuddyBrgyTable.name}
+  iamRoleStatements:
+    - ${file(iam/FarmBuddyRegionTableIAM.yml):FarmBuddyRegionTableIAM}
+    - ${file(iam/FarmBuddyProvinceTableIAM.yml):FarmBuddyProvinceTableIAM}
+    - ${file(iam/FarmBuddyCityMunTableIAM.yml):FarmBuddyCityMunTableIAM}
+    - ${file(iam/FarmBuddyBrgyTableIAM.yml):FarmBuddyBrgyTableIAM}
+
+resources:
+  Resources:
+    FarmBuddyRegionTable: ${file(resources/FarmBuddyRegionTable.yml):FarmBuddyRegionTable}
+    FarmBuddyProvinceTable: ${file(resources/FarmBuddyProvinceTable.yml):FarmBuddyProvinceTable}
+    FarmBuddyCityMunTable: ${file(resources/FarmBuddyCityMunTable.yml):FarmBuddyCityMunTable}
+    FarmBuddyBrgyTable: ${file(resources/FarmBuddyBrgyTable.yml):FarmBuddyBrgyTable}
+
+functions:
+  initRegion:
+    handler: src/handlers/initRegion.handler
+  initProvince:
+    handler: src/handlers/initProvince.handler
+  initCityMun:
+    handler: src/handlers/initCityMun.handler
+  initBrgy:
+    handler: src/handlers/initBrgy.handler
+  getProvinces: 
+    handler: src/handlers/getProvinces.handler
+    events:
+      - http:
+          method: GET
+          path: /get-provinces
+  getCities:
+    handler: src/handlers/getCities.handler
+    events:
+      - http:
+          method: GET
+          path: /get-cities
+  getRegions: 
+    handler: src/handlers/getRegions.handler
+    events:
+      - http:
+          method: GET
+          path: /get-regions
+  hello:
+    handler: src/handlers/hello.handler
+    events:
+      - http:
+          method: GET
+          path: /regions
+          # cors: true
+          # authorizer: ${self:custom.authorizer}
+custom:
+  # authorizer: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:auth-service-${self:provider.stage}-auth
+  FarmBuddyProvinceTable:
+    name: !Ref FarmBuddyProvinceTable
+    arn: !GetAtt FarmBuddyProvinceTable.Arn
+  FarmBuddyRegionTable:
+    name: !Ref FarmBuddyRegionTable
+    arn: !GetAtt FarmBuddyRegionTable.Arn
+  FarmBuddyCityMunTable:
+    name: !Ref FarmBuddyCityMunTable
+    arn: !GetAtt FarmBuddyCityMunTable.Arn
+  FarmBuddyBrgyTable:
+    name: !Ref FarmBuddyBrgyTable
+    arn: !GetAtt FarmBuddyBrgyTable.Arn

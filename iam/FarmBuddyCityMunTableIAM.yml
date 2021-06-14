@@ -1,0 +1,12 @@
+FarmBuddyCityMunTableIAM:
+  Effect: Allow
+  Action:
+    - dynamodb:PutItem
+    - dynamodb:Scan
+    - dynamodb:GetItem
+    - dynamodb:UpdateItem
+    - dynamodb:Query
+    - dynamodb:BatchWriteItem
+  Resource:
+    - ${self:custom.FarmBuddyCityMunTable.arn}
+    - !Join ['/', [ '${self:custom.FarmBuddyCityMunTable.arn}', 'index', 'RegCodeAndProvCode' ]]

@@ -1,0 +1,29 @@
+{
+  "name": "farmbuddylocation",
+  "version": "1.0.0",
+  "description": "Servesless api for farm buddy locations/address",
+  "author": "Raymund Cuizon <raymund@cuizon.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "serverless-bundle": "^4.3.1",
+    "serverless-pseudo-parameters": "^2.5.0",
+    "webpack": "^4.46.0"
+  },
+  "dependencies": {
+    "@middy/core": "^2.2.0",
+    "@middy/http-cors": "^2.3.0",
+    "@middy/http-error-handler": "^2.2.0",
+    "@middy/http-event-normalizer": "^2.2.0",
+    "@middy/http-json-body-parser": "^2.2.0",
+    "@middy/validator": "^2.2.0",
+    "aws-sdk": "^2.639.0",
+    "http-errors": "^1.8.0",
+    "lodash.chunk": "^4.2.0",
+    "uuid": "^8.3.2"
+  }
+}

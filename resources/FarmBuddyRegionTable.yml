@@ -1,0 +1,25 @@
+FarmBuddyRegionTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: FarmBuddyRegionTable-${self:provider.stage}
+    BillingMode: PAY_PER_REQUEST
+    AttributeDefinitions:
+      - AttributeName: "id"
+        AttributeType: "N"
+      # - AttributeName: psgcCode
+      #   AttributeType: S
+      # - AttributeName: regCode
+      #   AttributeType: S
+    KeySchema:
+      - AttributeName: "id"
+        KeyType: "HASH"
+    # GlobalSecondaryIndexes:
+    #   - IndexName: regionGlobalSecInd
+    #     KeySchema:
+    #       - AttributeName: psgcCode
+    #         KeyType: HASH
+    #       - AttributeName: regCode
+    #         KeyType: RANGE
+    #     Projection:
+    #       ProjectionType: ALL
+            
